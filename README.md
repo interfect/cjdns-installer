@@ -29,3 +29,9 @@ To build the installer, right-click on `installer.nsi` and hit "Compile NSIS Scr
 To re-build CjdnsService, open up the solution file in SharpDevelop and hit the build button. Then replace the `CjdnsService.exe` in the `installation` directory with your new copy, and re-build the installer.
 
 To re-build cjdns itself, produce your favorite cjdns build for Windows, and replace all the cjdns EXE files in `installation` with your own. Then re-build the installer.
+
+## Running cjdns
+
+The installer will, by default, install a TAP driver, cjdns, and a Windows service that starts cjdns on boot. It will generate a configuration file at `C:\Program Files (x86)\cjdns\cjdroute.conf`, or wherever you installed it to, and then start cjdns.
+
+To configure cjdns, edit that configuration file, and then issue `net stop cjdns` and `net start cjdns` as administrator (or just reboot).

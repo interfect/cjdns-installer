@@ -1,12 +1,20 @@
-!define PRODUCT_NAME "cjdns installer"
+# We want to be pretty
+!include MUI2.nsh
+
+!define MUI_ICON "logo.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
+!define MUI_UNICON "logo.ico"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
+
+!define PRODUCT_NAME "CJDNS for Windows"
 !define PRODUCT_VERSION "0.1"
-!define PRODUCT_PUBLISHER "Adam Novak"
+!define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # Make sure you have the Simple Service Plugin from
 # <http://nsis.sourceforge.net/NSIS_Simple_Service_Plugin>
 
 # What is the installer called?
-Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+Name "${PRODUCT_NAME}"
 OutFile "cjsns-installer.exe"
 ShowInstDetails show
 
@@ -16,17 +24,22 @@ InstallDir "$PROGRAMFILES\cjdns"
 # Get proper permissions for uninstalling in Windows 7
 RequestExecutionLevel admin
 
-# Set the license
-LicenseData "LICENSE"
-
 # Set up page order
-Page license
-Page components
-Page directory
-Page instfiles
-UninstPage uninstConfirm
-UninstPage components
-UninstPage instfiles
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "LICENSE"
+!insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+
+!insertmacro MUI_UNPAGE_WELCOME
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_COMPONENTS
+!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
+
+# Set up language
+!insertmacro MUI_LANGUAGE "English"
  
 Section "Install TUN/TAP Driver"
 	# Install the tap driver
@@ -63,7 +76,10 @@ Section "Install cjdns"
 	
 	# Register with add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayName" "${PRODUCT_NAME}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "Publisher" "${PRODUCT_PUBLISHER}"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayVersion" "${PRODUCT_VERSION}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
+	
 	
 SectionEnd
 
