@@ -25,6 +25,7 @@ Page components
 Page directory
 Page instfiles
 UninstPage uninstConfirm
+UninstPage components
 UninstPage instfiles
  
 Section "Install TUN/TAP Driver"
@@ -33,6 +34,7 @@ Section "Install TUN/TAP Driver"
 	File "dependencies\tap-windows-9.9.2_3.exe"
     ExecWait "$INSTDIR\dependencies\tap-windows-9.9.2_3.exe"
 	Delete "$INSTDIR\dependencies\tap-windows-9.9.2_3.exe"
+	# TODO: Doesn't seem to work
 	RMDir "$INSTDIR\dependencies"
 SectionEnd
  
@@ -52,7 +54,7 @@ Section "Install cjdns"
 	File "installation\randombytes.exe"
 	File "installation\sybilsim.exe"
 	File "installation\genconf.cmd"
-	File "installation\run.cmd"
+	File "installation\CjdnsService.exe"
  
     # create the uninstaller
     WriteUninstaller "$INSTDIR\uninstall.exe"
@@ -75,7 +77,7 @@ SectionEnd
 
 Section "Install cjdns service"
 	# Install a normal service that auto-starts
-	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "2" "$INSTDIR\run.cmd" "" "" ""
+	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "2" "$INSTDIR\CjdnsService.exe" "" "" ""
 	
 	# And start it now
 	SimpleSC::StartService "cjdns" "" 30
@@ -96,7 +98,7 @@ Section "un.Uninstall cjdns"
     Delete "$INSTDIR\uninstall.exe"
  
     # Delete the uninstall shortcut
-    Delete "$SMPROGRAMS\new shortcut.lnk"
+    Delete "$SMPROGRAMS\Uninstall cjdns.lnk"
 	
 	# Delete all the files
 	Delete "$INSTDIR\cjdroute.exe"
@@ -106,10 +108,14 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\randombytes.exe"
 	Delete "$INSTDIR\sybilsim.exe"
 	Delete "$INSTDIR\genconf.cmd"
-	Delete "$INSTDIR\run.cmd"
+	Delete "$INSTDIR\CjdnsService.exe"
+	
+	# Remove the dependencies directory
+	RMDir /r "$INSTDIR\dependencies"
 	
 	# Delete the install directory, if empty
 	RMDir "$INSTDIR"
+	
 	
 	# Unregister with add/remove programs
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns"
