@@ -15,7 +15,7 @@
 
 # What is the installer called?
 Name "${PRODUCT_NAME}"
-OutFile "cjsns-installer.exe"
+OutFile "cjdns-installer.exe"
 ShowInstDetails show
 
 # Where do we want to install to?
