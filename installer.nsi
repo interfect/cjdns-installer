@@ -54,7 +54,6 @@ Section "Install cjdns"
 	File "installation\randombytes.exe"
 	File "installation\sybilsim.exe"
 	File "installation\genconf.cmd"
-	File "installation\CjdnsService.exe"
  
     # create the uninstaller
     WriteUninstaller "$INSTDIR\uninstall.exe"
@@ -76,17 +75,36 @@ Section "Generate cjdns configuration"
 SectionEnd
 
 Section "Install cjdns service"
-	# Install a normal service that auto-starts
-	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "2" "$INSTDIR\CjdnsService.exe" "" "" ""
+	# Copy the service files
+	File "installation\CjdnsService.exe"
+	File "installation\restart.cmd"
+
+	# Install a normal service that the user manually starts
+	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\CjdnsService.exe" "" "" ""
+	
+SectionEnd
+
+Section "Start cjdns automatically"
+	# Set cjdns to start at boot, instead of manually
+	SimpleSC::SetServiceStartType "cjdns" "2"
 	
 	# And start it now
 	SimpleSC::StartService "cjdns" "" 30
-	
+SectionEnd
+
+Section "Restart cjdns on crash"
+	# If it dies, restart it after 10 seconds
+	SimpleSC::SetServiceFailure "cjdns" "0" "" "" "1" "10000" "0" "0" "0" "0"\
+	# Restart if it stops properly with nonzero return code
+	SimpleSC::SetServiceFailureFlag "cjdns" "1"
 SectionEnd
  
 
 Section "un.Uninstall cjdns"
 	# Things the uninstaller does
+ 
+	# Uninstall shell stuff for everyone
+	SetShellVarContext all
  
 	# Stop the service
 	SimpleSC::StopService "cjdns" 1 30
@@ -109,6 +127,7 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\sybilsim.exe"
 	Delete "$INSTDIR\genconf.cmd"
 	Delete "$INSTDIR\CjdnsService.exe"
+	Delete "$INSTDIR\restart.cmd"
 	
 	# Remove the dependencies directory
 	RMDir /r "$INSTDIR\dependencies"
