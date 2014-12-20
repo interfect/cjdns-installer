@@ -7,15 +7,15 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.1"
+!define PRODUCT_VERSION "0.2"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # Make sure you have the Simple Service Plugin from
 # <http://nsis.sourceforge.net/NSIS_Simple_Service_Plugin>
 
 # What is the installer called?
-Name "${PRODUCT_NAME}"
-OutFile "cjdns-installer.exe"
+Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+OutFile "cjdns-installer-${PRODUCT_VERSION}.exe"
 ShowInstDetails show
 
 # Where do we want to install to?
@@ -53,6 +53,9 @@ SectionEnd
  
 Section "Install cjdns"
 	# Things the installer does
+	
+	# Stop the service if it exists
+	SimpleSC::StopService "cjdns" 1 30
     
 	# Install shell stuff for everyone
 	SetShellVarContext all
@@ -83,7 +86,7 @@ Section "Install cjdns"
 	
 SectionEnd
 
-Section "Generate cjdns configuration"
+Section "Generate NEW cjdns configuration"
 	# Be in the right directory
 	SetOutPath "$INSTDIR"
 	# Make cjdns config file
@@ -91,6 +94,9 @@ Section "Generate cjdns configuration"
 SectionEnd
 
 Section "Install cjdns service"
+	# Stop the service if it exists.
+	SimpleSC::StopService "cjdns" 1 30
+
 	# Copy the service files
 	File "installation\CjdnsService.exe"
 	File "installation\restart.cmd"
