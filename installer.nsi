@@ -86,10 +86,10 @@ Section "Install cjdns"
 	
 SectionEnd
 
-Section "Generate NEW cjdns configuration"
+Section "Generate cjdns configuration if needed"
 	# Be in the right directory
 	SetOutPath "$INSTDIR"
-	# Make cjdns config file
+	# Make cjdns config file if it doesn't exist
 	ExecWait "genconf.cmd"
 SectionEnd
 
