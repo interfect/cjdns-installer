@@ -7,7 +7,7 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.2"
+!define PRODUCT_VERSION "0.3-proto14"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # Make sure you have the Simple Service Plugin from
