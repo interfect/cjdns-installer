@@ -86,6 +86,15 @@ Section "Install cjdns"
 	
 SectionEnd
 
+Section "Add public peers when generating config"
+	# Be in the right directory
+	SetOutPath "$INSTDIR"
+	
+    # Add these files
+	File "installation\public_peers.txt"
+    File "installation\addPublicPeers.vbs"
+SectionEnd
+
 Section "Generate cjdns configuration if needed"
 	# Be in the right directory
 	SetOutPath "$INSTDIR"
