@@ -1,17 +1,23 @@
 # We want to be pretty
 !include MUI2.nsh
 
-!define MUI_ICON "logo.ico"
+!define MUI_ICON "installation/logo.ico"
 !define MUI_WELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
-!define MUI_UNICON "logo.ico"
+!define MUI_UNICON "installation/logo.ico"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
 !define PRODUCT_VERSION "0.5-proto16"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
+# NSIS Dependencies
+# To build the installer:
 # Make sure you have the Simple Service Plugin from
 # <http://nsis.sourceforge.net/NSIS_Simple_Service_Plugin>
+# AND the ShellLink plug-in from
+# <http://nsis.sourceforge.net/ShellLink_plug-in>
+# You may have to second-guess the default DLL install paths 
+# for ANSI and Unicode DLLS on NSIS 3
 
 # What is the installer called?
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
@@ -70,12 +76,17 @@ Section "Install cjdns"
 	File "installation\randombytes.exe"
 	File "installation\sybilsim.exe"
 	File "installation\genconf.cmd"
+    File "installation\logo.ico"
  
     # create the uninstaller
     WriteUninstaller "$INSTDIR\uninstall.exe"
  
-    # Add a shortcut to it
-    CreateShortCut "$SMPROGRAMS\Uninstall cjdns.lnk" "$INSTDIR\uninstall.exe"
+    # Delete the old uninstall shortcut if we're upgrading
+    Delete "$SMPROGRAMS\Uninstall cjdns.lnk"
+ 
+    # Add a shortcut to the uninstaller
+    CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk" "$INSTDIR\uninstall.exe"
 	
 	# Register with add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayName" "${PRODUCT_NAME}"
@@ -109,6 +120,21 @@ Section "Install cjdns service"
 	# Copy the service files
 	File "installation\CjdnsService.exe"
 	File "installation\restart.cmd"
+    File "installation\stop.cmd"
+    File "installation\start.cmd"
+    
+    # Add a shortcut to restart cjdns. It has to be told to run as admin since the batch script can't do it.
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk" "$INSTDIR\restart.cmd" "" "$INSTDIR\logo.ico"
+    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk"
+    Pop $0
+    
+    # Similarly add stop and start shortcuts
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk" "$INSTDIR\stop.cmd" "" "$INSTDIR\logo.ico"
+    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk"
+    Pop $0
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk" "$INSTDIR\start.cmd" "" "$INSTDIR\logo.ico"
+    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk"
+    Pop $0
 
 	# Install a normal service that the user manually starts
 	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\CjdnsService.exe" "" "" ""
@@ -129,6 +155,11 @@ Section "Restart cjdns on crash"
 	# Restart if it stops properly with nonzero return code
 	SimpleSC::SetServiceFailureFlag "cjdns" "1"
 SectionEnd
+
+Section "Display instructions"
+    # Send the user to our web page where we talk about how to actually use cjdns
+    ExecShell "open" "https://github.com/interfect/cjdns-installer/blob/master/Users%20Guide.md"
+SectionEnd
  
 
 Section "un.Uninstall cjdns"
@@ -147,7 +178,10 @@ Section "un.Uninstall cjdns"
     Delete "$INSTDIR\uninstall.exe"
  
     # Delete the uninstall shortcut
-    Delete "$SMPROGRAMS\Uninstall cjdns.lnk"
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk"
+    
+    # Delete the start menu folder
+    RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
 	
 	# Delete all the files (including optional ones)
 	Delete "$INSTDIR\cjdroute.exe"
@@ -159,8 +193,11 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\genconf.cmd"
 	Delete "$INSTDIR\CjdnsService.exe"
 	Delete "$INSTDIR\restart.cmd"
+    Delete "$INSTDIR\stop.cmd"
+    Delete "$INSTDIR\start.cmd"
     Delete "$INSTDIR\public_peers.txt"
     Delete "$INSTDIR\addPublicPeers.vbs"
+    Delete "$INSTDIR\logo.ico"
 	
 	# Remove the dependencies directory
 	RMDir /r "$INSTDIR\dependencies"
