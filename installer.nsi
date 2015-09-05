@@ -7,7 +7,7 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.4-proto16"
+!define PRODUCT_VERSION "0.5-proto16"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # Make sure you have the Simple Service Plugin from
@@ -44,9 +44,9 @@ RequestExecutionLevel admin
 Section "Install TUN/TAP Driver"
 	# Install the tap driver
 	SetOutPath "$INSTDIR\dependencies"
-	File "dependencies\tap-windows-9.9.2_3.exe"
-    ExecWait "$INSTDIR\dependencies\tap-windows-9.9.2_3.exe"
-	Delete "$INSTDIR\dependencies\tap-windows-9.9.2_3.exe"
+	File "dependencies\tap-windows-9.21.1.exe"
+    ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
+	Delete "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
 	# TODO: Doesn't seem to work
 	RMDir "$INSTDIR\dependencies"
 SectionEnd
@@ -149,7 +149,7 @@ Section "un.Uninstall cjdns"
     # Delete the uninstall shortcut
     Delete "$SMPROGRAMS\Uninstall cjdns.lnk"
 	
-	# Delete all the files
+	# Delete all the files (including optional ones)
 	Delete "$INSTDIR\cjdroute.exe"
 	Delete "$INSTDIR\makekeys.exe"
 	Delete "$INSTDIR\privatetopublic.exe"
@@ -159,6 +159,8 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\genconf.cmd"
 	Delete "$INSTDIR\CjdnsService.exe"
 	Delete "$INSTDIR\restart.cmd"
+    Delete "$INSTDIR\public_peers.txt"
+    Delete "$INSTDIR\addPublicPeers.vbs"
 	
 	# Remove the dependencies directory
 	RMDir /r "$INSTDIR\dependencies"
