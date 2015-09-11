@@ -94,7 +94,7 @@ Section "Install cjdns"
     Pop $0
     
     File "installation\test_config.cmd"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & test_config.cmd$\"" "$INSTDIR\logo.ico"
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & test_config.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
     ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
     Pop $0
 	
