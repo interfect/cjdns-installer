@@ -54,7 +54,7 @@ In general, peering credentials look something like this:
 },
 ```
 
-Only one side of a given link need peering credentials. The person on the other end just puts the password in their configuration file as an "authorized password".
+Only one side of a given link needs peering credentials. The person on the other end just puts the password in their configuration file as an "authorized password".
 
 ###Make some Internet friends
 
