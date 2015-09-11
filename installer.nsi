@@ -87,6 +87,16 @@ Section "Install cjdns"
     # Add a shortcut to the uninstaller
     CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk" "$INSTDIR\uninstall.exe"
+    
+    # Add a tool and shortcut to edit the config
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk" "notepad.exe" "$INSTDIR\cjdroute.conf" "$INSTDIR\logo.ico"
+    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
+    Pop $0
+    
+    File "installation\test_config.cmd"
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & test_config.cmd$\"" "$INSTDIR\logo.ico"
+    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
+    Pop $0
 	
 	# Register with add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayName" "${PRODUCT_NAME}"
@@ -180,6 +190,14 @@ Section "un.Uninstall cjdns"
     # Delete the uninstall shortcut
     Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk"
     
+    # Delete the other shortcuts
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk"
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk"
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk"
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
+    
+    
     # Delete the start menu folder
     RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
 	
@@ -195,6 +213,7 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\restart.cmd"
     Delete "$INSTDIR\stop.cmd"
     Delete "$INSTDIR\start.cmd"
+    Delete "$INSTDIR\test_config.cmd"
     Delete "$INSTDIR\public_peers.txt"
     Delete "$INSTDIR\addPublicPeers.vbs"
     Delete "$INSTDIR\logo.ico"
