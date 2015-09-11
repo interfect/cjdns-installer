@@ -49,6 +49,13 @@
                         "location":"FR"
                         // Last check: Unresponsive on 9/3/2015
                     },
+                    "104.200.29.163:53053":{
+                        "password":"L9UNAUTiTW323aHhRvSlxTjH8VTa8Yj",
+                        "publicKey":"1941p5k8qqvj17vjrkb9z97wscvtgc1vp8pv1huk5120cu42ytt0.k",
+                        "contact":"ansuz@transitiontech.ca",
+                        "user": "ansuz",
+                        "location":"Newark,NJ,USA"
+                    },
                     //////////////////////////////////////////////////////////////////////////////
                     // End public access peers                                                  //
                     //////////////////////////////////////////////////////////////////////////////
