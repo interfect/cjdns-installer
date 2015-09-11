@@ -89,14 +89,19 @@ Section "Install cjdns"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk" "$INSTDIR\uninstall.exe"
     
     # Add a tool and shortcut to edit the config
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk" "notepad.exe" "$INSTDIR\cjdroute.conf" "$INSTDIR\logo.ico"
+    File "installation\edit_config.cmd"
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & edit_config.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
     ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
     Pop $0
     
+    # And one to test it
     File "installation\test_config.cmd"
     CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & test_config.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
     ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
     Pop $0
+    
+    # And one to test connectivity
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk" "ping" "/t fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5" "$INSTDIR\logo.ico"
 	
 	# Register with add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayName" "${PRODUCT_NAME}"
@@ -196,6 +201,7 @@ Section "un.Uninstall cjdns"
     Delete "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk"
     Delete "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
     Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk"
     
     
     # Delete the start menu folder
@@ -214,6 +220,7 @@ Section "un.Uninstall cjdns"
     Delete "$INSTDIR\stop.cmd"
     Delete "$INSTDIR\start.cmd"
     Delete "$INSTDIR\test_config.cmd"
+    Delete "$INSTDIR\edit_config.cmd"
     Delete "$INSTDIR\public_peers.txt"
     Delete "$INSTDIR\addPublicPeers.vbs"
     Delete "$INSTDIR\logo.ico"
