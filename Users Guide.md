@@ -98,7 +98,7 @@ The cjdns installer provides several useful shortcuts, under `Start -> All Progr
 
 If you don't have [Internet IPv6 connectivity](http://test-ipv6.com/), you may have some issues using the meshnet, because your browser or OS may try to second-guess you. For example, if Chrome doesn't see you as having IPv6 access to the Internet, it can refuse to even try to connect to domain names that resolve to IPv6 addresses. Since the meshnet is an IPv6-only network, and meshnet web sites like http://socialno.de or http://hub.hyperboria.net/ point their DNS names to their IPv6 addresses, this can result in you not being able to reach any meshnet sites by name in your browser.
 
-If you think that may be your problem, try accessing Hyperboria.name via [http://[fcfd:9511:69cc:a05e:4eb2:ed20:c6a0:52e3]/](http://[fcfd:9511:69cc:a05e:4eb2:ed20:c6a0:52e3]/); if that works but [http://hyperboria.name](http://hyperboria.name) fails, you have a DNS problem.
+If you think that may be your problem, try accessing Hyperboria.name via `http://[fcfd:9511:69cc:a05e:4eb2:ed20:c6a0:52e3]/`. if that works but `http://hyperboria.name` fails, you have a DNS problem.
 
 If you have this problem, try a different browser, or try reconfiguring your browser's IPv6 settings. If that doesn't work, try to get IPv6 Internet access from your ISP, or through a tunnel provider like [Hurricane Electric](https://tunnelbroker.net/), or try setting a static IPv6 address on your (non-TAP) network interfece.
 
@@ -108,7 +108,7 @@ If you have this problem, try a different browser, or try reconfiguring your bro
     * [Socialnode social network](http://socialno.de)
     * [Uppit news aggregator](http://uppit.us)
     * [Hub network infoprmation system](http://hub.hyperboria.net)
-    * [Hyperboria.name e-mail service](http://hyperboria.name) or [by IPv6 address](http://[fcfd:9511:69cc:a05e:4eb2:ed20:c6a0:52e3]/)
+    * [Hyperboria.name e-mail service](http://hyperboria.name) or `http://[fcfd:9511:69cc:a05e:4eb2:ed20:c6a0:52e3]/` by IPv6 address
     * [fc00.org network map](http://h.fc00.org) or [by Internet](http://fc00.org)
     * [Gitboria Git hosting](http://gitboria.com)
     
