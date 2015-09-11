@@ -56,7 +56,11 @@ In general, peering credentials look something like this:
 
 Only one side of a given link need peering credentials. The person on the other end just puts the password in their configuration file as an "authorized password".
 
+###Make some Internet friends
+
 The first step towards being a full citizen of Hyperboria is to move off of public peers and get your own real peers. You need to make a new friend on the meshnet and convince them to let you connect through them. The easiest way to do this is to ask on IRC, either on [EFNet's #projectmeshnet](http://chat.efnet.org:9090/?channels=#projectmeshnet), or on [#hyperboria on HypeIRC, the Hyperboria-only IRC network](irc://[fca8:2dd7:4987:a9be:c8fc:34d7:05a1:4606]/hyperboria), if you are already connected and have an IRC client installed. Unfortunately, this document can't really explain how to make Internet friends. Just be polite and respectful, and ready to tell people where you are so that they can see if they have any nodes near you.
+
+###Configure cjdns to talk to your new friends
 
 Once you have peering credentials in hand, you need to put them in your cjdns configuration file. To open it up, go to `Start -> All Programs -> CJDNS for Windows -> Configure cjdns`. Accept the UAC prompt, and a Notepad window should pop up, showing you your cjdns configuration file (which should be `C:\Program Files (x86)\cjdns\cjdroute.conf`). Note that this is a special administratively-empowered Notepad window; if you just open up cjdroute.conf and don't run your editor as administrator, you won't be allowed to save it. There should also be a command prompt window that's managing the editing process; don't close it.
 
@@ -69,6 +73,8 @@ Once you have your magic Notepad, find the *first* lines (unless you know what y
 
 Right under that comment, add in your peering credentials that you received. If you got more than one set of credentials, make sure they are separated with commas between them. Once you're done, save your changes with `File -> Save` and close Notepad.
 
+###Test your configuration
+
 At this point, the command window should start doing exciting things, and another command window should appear. If your config file is correct, it should end with lines that look something like this:
 
 ```
@@ -78,6 +84,8 @@ pecified on the command line
 ```
 
 If it does look like that, you are good to go. Close that window (not the other one!) and cjdns should restart and apply your configuration, and try to connect to your new peer.
+
+###Troubleshoot
 
 If you see error messages or a prompt in that window, it means that cjdns didn't understand your configuration file. Close all the windows, and do `Start -> All Programs -> CJDNS for Windows -> Configure cjdns` again and look for where you may have made a mistake. Make sure all the quotes and braces are properly closed, and all the commas between things are between the things they need to be between. If all else fails, go ask for help from [EFNet's #projectmeshnet IRC channel](http://chat.efnet.org:9090/?channels=#projectmeshnet).
 
