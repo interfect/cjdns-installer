@@ -12,7 +12,7 @@ The installer itself is written in Nullsoft Scriptable Install System script. It
 
 You must have [Nullsoft Scriptable Install System](http://nsis.sourceforge.net/Main_Page) installed on your Windows box in order to build the installer.
 
-You also need to install the [NSIS Simple Service Plugin](http://nsis.sourceforge.net/NSIS_Simple_Service_Plugin). Make sure to put the DLL in the ANSI folder.
+You also need to install the [NSIS Simple Service Plugin](http://nsis.sourceforge.net/NSIS_Simple_Service_Plugin) and the [ShellLink plugin](http://nsis.sourceforge.net/ShellLink_plug-in). Make sure to put the DLLs in the ANSI folder.
 
 To rebuild CjdnsService, you should probably use [SharpDevelop](http://www.icsharpcode.net/opensource/sd/).
 
