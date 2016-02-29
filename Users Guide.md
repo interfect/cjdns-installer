@@ -124,8 +124,8 @@ If you have this problem, try a different browser, or try reconfiguring your bro
     * [IPvFoo Hyperboria Edition](https://chrome.google.com/webstore/detail/ipvfoo-hyperboria-edition/klnbkhdpiindiigfpbblonnajhcagpmk?hl=en) for Chrome lets you know if you are on an IPv4 Internet, IPv6 Internet, or Hyperboria web site.
     * [IPvFox](https://addons.mozilla.org/en-US/firefox/addon/ipvfox/) for Firefox just tells you if your web page is IPv4 or IPv6, but if you click on the 6 and it starts with "fc", you're on Hyperboria!
     
-* Connect to HypeIRC:
-    * IPv6 Address: fca8:2dd7:4987:a9be:c8fc:34d7:05a1:4606
+* Connect to IRC:
+    * IPv6 Address: fc34:8675:ed95:600c:38d7:6eb8:f5b9:5bfa or irc.fc00.io
     * Port: 6667
     * Client: any supporting IPv6, like [this one](http://www.adiirc.com/) or even [this one](http://www.mirc.com/).
     
