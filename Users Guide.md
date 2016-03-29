@@ -102,7 +102,9 @@ The cjdns installer provides several useful shortcuts, under `Start -> All Progr
 * **Test cjdns configuration**: Stop cjdns and re-start it in a command window, so you can see its output. Useful if you think it might be crashing or generating errors. When you close the foreground window, it gets re-started in the background.
 * **Test cjdsn connectivity**: Sends messages to [socialno.de](http://socialno.de), which has address `fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5`. Lets you test whether you can talk to nodes on Hyperboria. Note that if socialno.de is down, this tool will not be able to talk to it even though you might be correctly connected and able to reach other meshnet nodes.
 
-##Fix IPv6 Problems
+##Fix IPv6 DNS Problems
+
+By default, the CJDNS for Windows installer installs a version of [Kubuxu's DNS hack](http://student.agh.edu.pl/~ksztand/2015/12/dns-fix-for-windows/) which should allow browsing to work out of the box in Firefox, even with no Internet IPv6 connectivity. **If Chrome is not working, try Firefox!**
 
 If you don't have [Internet IPv6 connectivity](http://test-ipv6.com/), you may have some issues using the meshnet, because your browser or OS may try to second-guess you. For example, if Chrome doesn't see you as having IPv6 access to the Internet, it can refuse to even try to connect to domain names that resolve to IPv6 addresses. Since the meshnet is an IPv6-only network, and meshnet web sites like http://socialno.de or http://hub.hyperboria.net/ point their DNS names to their IPv6 addresses, this can result in you not being able to reach any meshnet sites by name in your browser.
 
