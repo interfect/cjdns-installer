@@ -103,14 +103,24 @@ Section "Install cjdns"
     
     # And one to test connectivity
     CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk" "ping" "/t fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5" "$INSTDIR\logo.ico"
+    
+    # Add tools to hack and unhack DNS
+    # Basically spray static IPv6 addresses on all the interfaces so Firefox can browse by domain name.
+    File "installation\dns_hack.cmd"
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_hack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
+    Pop $0
+    
+    File "installation\dns_unhack.cmd"
+    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_unhack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
+    Pop $0
 	
 	# Register with add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayName" "${PRODUCT_NAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "Publisher" "${PRODUCT_PUBLISHER}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayVersion" "${PRODUCT_VERSION}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
-	
-	
 SectionEnd
 
 Section "Add public peers when generating config"
@@ -154,7 +164,16 @@ Section "Install cjdns service"
 
 	# Install a normal service that the user manually starts
 	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\CjdnsService.exe" "" "" ""
-	
+SectionEnd
+
+Section "Apply DNS hack"
+	# Be in the right directory
+	SetOutPath "$INSTDIR"
+	# Apply the DNS hack to all the interfaces
+	ExecWait "dns_hack.cmd"
+    # Now we have a legit-looking on at least one interface
+    # Sleep so that we don't immediately open a browser tab while the network was just changed and confuse e.g. Chrome.
+    Sleep 10000
 SectionEnd
 
 Section "Start cjdns automatically"
@@ -189,6 +208,9 @@ Section "un.Uninstall cjdns"
 	
 	# Remove the service
 	SimpleSC::RemoveService "cjdns"
+    
+    # Undo the DNS hack, whether applied or not
+    ExecWait "$INSTDIR\dns_unhack.bat"
  
     # Delete the uninstaller
     Delete "$INSTDIR\uninstall.exe"
@@ -203,7 +225,8 @@ Section "un.Uninstall cjdns"
     Delete "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
     Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
     Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk"
-    
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
+    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
     
     # Delete the start menu folder
     RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
@@ -222,6 +245,8 @@ Section "un.Uninstall cjdns"
     Delete "$INSTDIR\start.cmd"
     Delete "$INSTDIR\test_config.cmd"
     Delete "$INSTDIR\edit_config.cmd"
+    Delete "$INSTDIR\dns_hack.cmd"
+    Delete "$INSTDIR\dns_unhack.cmd"
     Delete "$INSTDIR\public_peers.txt"
     Delete "$INSTDIR\addPublicPeers.vbs"
     Delete "$INSTDIR\logo.ico"
