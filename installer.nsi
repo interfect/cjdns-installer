@@ -12,7 +12,8 @@
 
 # NSIS Dependencies
 # To build the installer:
-# Make sure you have the Simple Service Plugin from
+# (the required 2 plugins are now also embbed in this code repository in
+# directory dependencies/NSIS_plugins/)
 # <http://nsis.sourceforge.net/NSIS_Simple_Service_Plugin>
 # AND the ShellLink plug-in from
 # <http://nsis.sourceforge.net/ShellLink_plug-in>
