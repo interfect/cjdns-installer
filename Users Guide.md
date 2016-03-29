@@ -58,7 +58,7 @@ Only one side of a given link needs peering credentials. The person on the other
 
 ###Make some Internet friends
 
-The first step towards being a full citizen of Hyperboria is to move off of public peers and get your own real peers. You need to make a new friend on the meshnet and convince them to let you connect through them. The easiest way to do this is to ask on IRC, either on [EFNet's #projectmeshnet here](http://chat.efnet.org:9090/?channels=#projectmeshnet), or on #hyperboria on HypeIRC, the Hyperboria-only IRC network, available at `fca8:2dd7:4987:a9be:c8fc:34d7:05a1:4606`. Unfortunately, this document can't really explain how to make Internet friends. Just be polite and respectful, and ready to tell people where you are so that they can see if they have any nodes near you.
+The first step towards being a full citizen of Hyperboria is to move off of public peers and get your own real peers. You need to make a new friend on the meshnet and convince them to let you connect through them. The easiest way to do this is to ask on IRC, either on [EFNet's #projectmeshnet here](http://chat.efnet.org:9090/?channels=#projectmeshnet), or on #peering on the fc00 IRC network, available (if you are already connected to Hyperboria) at `fc34:8675:ed95:600c:38d7:6eb8:f5b9:5bfa`. Unfortunately, this document can't really explain how to make Internet friends. Just be polite and respectful, and ready to tell people where you are so that they can see if they have any nodes near you.
 
 ###Configure cjdns to talk to your new friends
 
