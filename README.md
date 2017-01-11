@@ -24,6 +24,12 @@ The CjdnsService component requires .NET 2 or later in order to work.
 
 ## Building
 
+The repository includes built cjdns binaries, prepared [using this procedure](https://github.com/hyperboria/docs/blob/4274dbdffbc2f8b83138e4adcfe23d96013eafe7/install/windows.md). It basically amounts to:
+
+```
+SYSTEM=win32 CROSS_COMPILE=i686-w64-mingw32- ./cross-do
+```
+
 To build the installer, right-click on `installer.nsi` and hit "Compile NSIS Script".
 
 To re-build CjdnsService, open up the solution file in SharpDevelop and hit the build button. Then replace the `CjdnsService.exe` in the `installation` directory with your new copy, and re-build the installer.
