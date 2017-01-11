@@ -7,7 +7,7 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.7-proto17"
+!define PRODUCT_VERSION "0.8-proto18"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # NSIS Dependencies
@@ -72,6 +72,7 @@ Section "Install cjdns"
 	# Write all the files
 	File "installation\cjdroute.exe"
 	File "installation\makekeys.exe"
+    File "installation\mkpasswd.exe"
 	File "installation\privatetopublic.exe"
 	File "installation\publictoip6.exe"
 	File "installation\randombytes.exe"
@@ -234,6 +235,7 @@ Section "un.Uninstall cjdns"
 	# Delete all the files (including optional ones)
 	Delete "$INSTDIR\cjdroute.exe"
 	Delete "$INSTDIR\makekeys.exe"
+    Delete "$INSTDIR\mkpasswd.exe"
 	Delete "$INSTDIR\privatetopublic.exe"
 	Delete "$INSTDIR\publictoip6.exe"
 	Delete "$INSTDIR\randombytes.exe"
