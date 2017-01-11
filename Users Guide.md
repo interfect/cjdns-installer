@@ -58,7 +58,7 @@ Only one side of a given link needs peering credentials. The person on the other
 
 ###Make some Internet friends
 
-The first step towards being a full citizen of Hyperboria is to move off of public peers and get your own real peers. You need to make a new friend on the meshnet and convince them to let you connect through them. The easiest way to do this is to ask on IRC, either on [EFNet's #projectmeshnet here](http://chat.efnet.org:9090/?channels=#projectmeshnet), or on #peering on the fc00 IRC network, available (if you are already connected to Hyperboria) at `fc34:8675:ed95:600c:38d7:6eb8:f5b9:5bfa`. Unfortunately, this document can't really explain how to make Internet friends. Just be polite and respectful, and ready to tell people where you are so that they can see if they have any nodes near you.
+The first step towards being a full citizen of Hyperboria is to move off of public peers and get your own real peers. You need to make a new friend on the meshnet and convince them to let you connect through them. The easiest way to do this is to ask on IRC, either on [EFNet's #projectmeshnet here](http://chat.efnet.org:9090/?channels=#projectmeshnet), or on #peering on the fc00 IRC network, available (if you are already connected to Hyperboria) at `fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5`. Unfortunately, this document can't really explain how to make Internet friends. Just be polite and respectful, and ready to tell people where you are so that they can see if they have any nodes near you.
 
 ###Configure cjdns to talk to your new friends
 
@@ -127,7 +127,7 @@ If you have this problem, try a different browser, or try reconfiguring your bro
     * [IPvFox](https://addons.mozilla.org/en-US/firefox/addon/ipvfox/) for Firefox just tells you if your web page is IPv4 or IPv6, but if you click on the 6 and it starts with "fc", you're on Hyperboria!
     
 * Connect to IRC:
-    * IPv6 Address: fc34:8675:ed95:600c:38d7:6eb8:f5b9:5bfa or irc.fc00.io
+    * IPv6 Address: fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5 or irc.fc00.io
     * Port: 6667
     * Client: any supporting IPv6, like [this one](http://www.adiirc.com/) or even [this one](http://www.mirc.com/).
     
