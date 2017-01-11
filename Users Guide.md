@@ -25,7 +25,7 @@ Request timed out.
 ...
 ```
 
-Then cjdns is running, but you aren't connected to any peers that can send your traffic to the rest of Hyperboria (or http://socialno.de is down and not responding to your pings). In this case, skip to [Add More Peers](#add-more-peers) below.
+Then cjdns is running, but you aren't connected to any peers that can send your traffic to the rest of Hyperboria (or irc.fc00.io is down and not responding to your pings). In this case, skip to [Add More Peers](#add-more-peers) below.
 
 If you see:
 
@@ -115,12 +115,8 @@ If you have this problem, try a different browser, or try reconfiguring your bro
 ##Explore the Meshnet
 
 * Visit cool meshnet sites:
-    * [Socialnode social network](http://socialno.de)
-    * [Uppit news aggregator](http://uppit.us)
-    * [Hub network infoprmation system](http://hub.hyperboria.net)
     * [Hyperboria.name e-mail service](http://hyperboria.name) or `http://[fcfd:9511:69cc:a05e:4eb2:ed20:c6a0:52e3]/` by IPv6 address
     * [fc00.org network map](http://h.fc00.org) or [by Internet](http://fc00.org)
-    * [Gitboria Git hosting](http://gitboria.com)
     
 * Trick out your browser:
     * [IPvFoo Hyperboria Edition](https://chrome.google.com/webstore/detail/ipvfoo-hyperboria-edition/klnbkhdpiindiigfpbblonnajhcagpmk?hl=en) for Chrome lets you know if you are on an IPv4 Internet, IPv6 Internet, or Hyperboria web site.
