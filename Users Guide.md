@@ -39,7 +39,7 @@ Destination net unreachable.
 
 Then cjdns is not running correctly. It might just be stopped: try `Start -> All Programs -> CJDNS for Windows -> Start cjdns`, and see if it starts working.
 
-If it doesn't, make sure the TAP driver is installed (it should get installed by default unless you unticked it), and make sure that you have a TAP adapter in `Control Panel\Network and Internet\Network Connections` (it should say TAP-Windows Adapter V9` on the third line). If that TAP adapter is named with non-Roman or other special characters, re-name it so that its name only contains English characters. Once that's all done, run `Start -> All Programs -> CJDNS for Windows -> Test cjdns configuration`, and see what cjdns has to say when it starts up. If it still doesn't work, take your cjdns output and head over to the [#projectmeshnet IRC on EFnet](http://chat.efnet.org:9090/?channels=#projectmeshnet) and ask for help.
+If it doesn't, make sure the TAP driver is installed (it should get installed by default unless you unticked it), and make sure that you have a TAP adapter in `Control Panel\Network and Internet\Network Connections` (it should say `TAP-Windows Adapter V9` on the third line). If that TAP adapter is named with non-Roman or other special characters, re-name it so that its name only contains English characters. Once that's all done, run `Start -> All Programs -> CJDNS for Windows -> Test cjdns configuration`, and see what cjdns has to say when it starts up. If it still doesn't work, take your cjdns output and head over to the [#projectmeshnet IRC on EFnet](http://chat.efnet.org:9090/?channels=#projectmeshnet) and ask for help.
 
 ##Add more peers
 
