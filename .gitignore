@@ -4,6 +4,9 @@
 # The actual installer
 cjdns-installer-*.exe
 
+# Cjdns repo
+cjdns
+
 # User-specific files
 *.suo
 *.user

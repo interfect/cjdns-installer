@@ -7,7 +7,7 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.8-proto18"
+!define PRODUCT_VERSION "0.8-proto20.1"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # NSIS Dependencies
@@ -17,7 +17,7 @@
 # <http://nsis.sourceforge.net/NSIS_Simple_Service_Plugin>
 # AND the ShellLink plug-in from
 # <http://nsis.sourceforge.net/ShellLink_plug-in>
-# You may have to second-guess the default DLL install paths 
+# You may have to second-guess the default DLL install paths
 # for ANSI and Unicode DLLS on NSIS 3
 
 # What is the installer called?
@@ -27,7 +27,7 @@ ShowInstDetails show
 
 # Where do we want to install to?
 InstallDir "$PROGRAMFILES\cjdns"
- 
+
 # Get proper permissions for uninstalling in Windows 7
 RequestExecutionLevel admin
 
@@ -47,76 +47,79 @@ RequestExecutionLevel admin
 
 # Set up language
 !insertmacro MUI_LANGUAGE "English"
- 
+
 Section "Install TUN/TAP Driver"
 	# Install the tap driver
 	SetOutPath "$INSTDIR\dependencies"
 	File "dependencies\tap-windows-9.21.1.exe"
-    ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
+	IfSilent +2
+	ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
+	IfSilent 0 +2
+	ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe /S"
 	Delete "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
 	# TODO: Doesn't seem to work
-	RMDir "$INSTDIR\dependencies"
+	RMDir /r "$INSTDIR\dependencies"
 SectionEnd
- 
+
 Section "Install cjdns"
 	# Things the installer does
-	
+
 	# Stop the service if it exists
 	SimpleSC::StopService "cjdns" 1 30
-    
+
 	# Install shell stuff for everyone
 	SetShellVarContext all
-	
-    SetOutPath $INSTDIR
- 
+
+	SetOutPath $INSTDIR
+
 	# Write all the files
 	File "installation\cjdroute.exe"
 	File "installation\makekeys.exe"
-    File "installation\mkpasswd.exe"
+	File "installation\mkpasswd.exe"
 	File "installation\privatetopublic.exe"
 	File "installation\publictoip6.exe"
 	File "installation\randombytes.exe"
 	File "installation\sybilsim.exe"
 	File "installation\genconf.cmd"
-    File "installation\logo.ico"
- 
-    # create the uninstaller
-    WriteUninstaller "$INSTDIR\uninstall.exe"
- 
-    # Delete the old uninstall shortcut if we're upgrading
-    Delete "$SMPROGRAMS\Uninstall cjdns.lnk"
- 
-    # Add a shortcut to the uninstaller
-    CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk" "$INSTDIR\uninstall.exe"
-    
-    # Add a tool and shortcut to edit the config
-    File "installation\edit_config.cmd"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & edit_config.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
-    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
-    Pop $0
-    
-    # And one to test it
-    File "installation\test_config.cmd"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & test_config.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
-    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
-    Pop $0
-    
-    # And one to test connectivity
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk" "ping" "/t fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5" "$INSTDIR\logo.ico"
-    
-    # Add tools to hack and unhack DNS
-    # Basically spray static IPv6 addresses on all the interfaces so Firefox can browse by domain name.
-    File "installation\dns_hack.cmd"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_hack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
-    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
-    Pop $0
-    
-    File "installation\dns_unhack.cmd"
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_unhack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
-    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
-    Pop $0
-	
+	File "installation\logo.ico"
+
+	# create the uninstaller
+	WriteUninstaller "$INSTDIR\uninstall.exe"
+
+	# Delete the old uninstall shortcut if we're upgrading
+	Delete "$SMPROGRAMS\Uninstall cjdns.lnk"
+
+	# Add a shortcut to the uninstaller
+	CreateDirectory "$SMPROGRAMS\${PRODUCT_NAME}"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk" "$INSTDIR\uninstall.exe"
+
+	# Add a tool and shortcut to edit the config
+	File "installation\edit_config.cmd"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & edit_config.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
+	Pop $0
+
+	# And one to test it
+	File "installation\test_config.cmd"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & test_config.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
+	Pop $0
+
+	# And one to test connectivity
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk" "ping" "/t fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5" "$INSTDIR\logo.ico"
+
+	# Add tools to hack and unhack DNS
+	# Basically spray static IPv6 addresses on all the interfaces so Firefox can browse by domain name.
+	File "installation\dns_hack.cmd"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_hack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
+	Pop $0
+
+	File "installation\dns_unhack.cmd"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_unhack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
+	Pop $0
+
 	# Register with add/remove programs
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "DisplayName" "${PRODUCT_NAME}"
 	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns" "Publisher" "${PRODUCT_PUBLISHER}"
@@ -127,10 +130,10 @@ SectionEnd
 Section "Add public peers when generating config"
 	# Be in the right directory
 	SetOutPath "$INSTDIR"
-	
-    # Add these files
+
+	# Add these files
 	File "installation\public_peers.txt"
-    File "installation\addPublicPeers.vbs"
+	File "installation\addPublicPeers.vbs"
 SectionEnd
 
 Section "Generate cjdns configuration if needed"
@@ -147,21 +150,21 @@ Section "Install cjdns service"
 	# Copy the service files
 	File "installation\CjdnsService.exe"
 	File "installation\restart.cmd"
-    File "installation\stop.cmd"
-    File "installation\start.cmd"
-    
-    # Add a shortcut to restart cjdns. It has to be told to run as admin since the batch script can't do it.
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk" "$INSTDIR\restart.cmd" "" "$INSTDIR\logo.ico"
-    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk"
-    Pop $0
-    
-    # Similarly add stop and start shortcuts
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk" "$INSTDIR\stop.cmd" "" "$INSTDIR\logo.ico"
-    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk"
-    Pop $0
-    CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk" "$INSTDIR\start.cmd" "" "$INSTDIR\logo.ico"
-    ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk"
-    Pop $0
+	File "installation\stop.cmd"
+	File "installation\start.cmd"
+
+	# Add a shortcut to restart cjdns. It has to be told to run as admin since the batch script can't do it.
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk" "$INSTDIR\restart.cmd" "" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk"
+	Pop $0
+
+	# Similarly add stop and start shortcuts
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk" "$INSTDIR\stop.cmd" "" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk"
+	Pop $0
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk" "$INSTDIR\start.cmd" "" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk"
+	Pop $0
 
 	# Install a normal service that the user manually starts
 	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\CjdnsService.exe" "" "" ""
@@ -172,15 +175,15 @@ Section "Apply DNS hack"
 	SetOutPath "$INSTDIR"
 	# Apply the DNS hack to all the interfaces
 	ExecWait "dns_hack.cmd"
-    # Now we have a legit-looking on at least one interface
-    # Sleep so that we don't immediately open a browser tab while the network was just changed and confuse e.g. Chrome.
-    Sleep 10000
+	# Now we have a legit-looking on at least one interface
+	# Sleep so that we don't immediately open a browser tab while the network was just changed and confuse e.g. Chrome.
+	Sleep 10000
 SectionEnd
 
 Section "Start cjdns automatically"
 	# Set cjdns to start at boot, instead of manually
 	SimpleSC::SetServiceStartType "cjdns" "2"
-	
+
 	# And start it now
 	SimpleSC::StartService "cjdns" "" 30
 SectionEnd
@@ -193,49 +196,49 @@ Section "Restart cjdns on crash"
 SectionEnd
 
 Section "Display instructions"
-    # Send the user to our web page where we talk about how to actually use cjdns
-    ExecShell "open" "https://github.com/interfect/cjdns-installer/blob/master/Users%20Guide.md"
+	# Send the user to our web page where we talk about how to actually use cjdns
+	ExecShell "open" "https://github.com/interfect/cjdns-installer/blob/master/Users%20Guide.md"
 SectionEnd
- 
+
 
 Section "un.Uninstall cjdns"
 	# Things the uninstaller does
- 
+
 	# Uninstall shell stuff for everyone
 	SetShellVarContext all
- 
+
 	# Stop the service
 	SimpleSC::StopService "cjdns" 1 30
-	
+
 	# Remove the service
 	SimpleSC::RemoveService "cjdns"
-    
-    # Undo the DNS hack, whether applied or not
-    ExecWait "$INSTDIR\dns_unhack.bat"
- 
-    # Delete the uninstaller
-    Delete "$INSTDIR\uninstall.exe"
- 
-    # Delete the uninstall shortcut
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk"
-    
-    # Delete the other shortcuts
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk"
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk"
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk"
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk"
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
-    Delete "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
-    
-    # Delete the start menu folder
-    RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
-	
+
+	# Undo the DNS hack, whether applied or not
+	ExecWait "$INSTDIR\dns_unhack.bat"
+
+	# Delete the uninstaller
+	Delete "$INSTDIR\uninstall.exe"
+
+	# Delete the uninstall shortcut
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Uninstall cjdns.lnk"
+
+	# Delete the other shortcuts
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Restart cjdns.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Stop cjdns.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Start cjdns.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
+
+	# Delete the start menu folder
+	RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
+
 	# Delete all the files (including optional ones)
 	Delete "$INSTDIR\cjdroute.exe"
 	Delete "$INSTDIR\makekeys.exe"
-    Delete "$INSTDIR\mkpasswd.exe"
+	Delete "$INSTDIR\mkpasswd.exe"
 	Delete "$INSTDIR\privatetopublic.exe"
 	Delete "$INSTDIR\publictoip6.exe"
 	Delete "$INSTDIR\randombytes.exe"
@@ -243,32 +246,30 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\genconf.cmd"
 	Delete "$INSTDIR\CjdnsService.exe"
 	Delete "$INSTDIR\restart.cmd"
-    Delete "$INSTDIR\stop.cmd"
-    Delete "$INSTDIR\start.cmd"
-    Delete "$INSTDIR\test_config.cmd"
-    Delete "$INSTDIR\edit_config.cmd"
-    Delete "$INSTDIR\dns_hack.cmd"
-    Delete "$INSTDIR\dns_unhack.cmd"
-    Delete "$INSTDIR\public_peers.txt"
-    Delete "$INSTDIR\addPublicPeers.vbs"
-    Delete "$INSTDIR\logo.ico"
-	
+	Delete "$INSTDIR\stop.cmd"
+	Delete "$INSTDIR\start.cmd"
+	Delete "$INSTDIR\test_config.cmd"
+	Delete "$INSTDIR\edit_config.cmd"
+	Delete "$INSTDIR\dns_hack.cmd"
+	Delete "$INSTDIR\dns_unhack.cmd"
+	Delete "$INSTDIR\public_peers.txt"
+	Delete "$INSTDIR\addPublicPeers.vbs"
+	Delete "$INSTDIR\logo.ico"
+
 	# Remove the dependencies directory
 	RMDir /r "$INSTDIR\dependencies"
-	
+
 	# Delete the install directory, if empty
 	RMDir "$INSTDIR"
-	
-	
+
 	# Unregister with add/remove programs
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cjdns"
- 
 SectionEnd
 
 Section "un.Remove cjdns configuration"
 	# Delete the config if it exists
 	Delete "$INSTDIR\cjdroute.conf"
-	
+
 	# Delete the install directory, if empty
 	RMDir "$INSTDIR"
 SectionEnd
