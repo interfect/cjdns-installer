@@ -285,3 +285,11 @@ Section "un.Remove cjdns configuration"
 	# Delete the install directory, if empty
 	RMDir "$INSTDIR"
 SectionEnd
+
+Section /o "un.Remove OpenVPN Tap Driver"
+	# Removes the tap driver by calling it's uninstaller
+	IfSilent +2
+	ExecWait "C:\Program Files\TAP-Windows\Uninstall.exe"
+	IfSilent 0 +2
+	ExecWait "C:\Program Files\TAP-Windows\Uninstall.exe /S"
+SectionEnd
