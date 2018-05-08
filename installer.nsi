@@ -7,7 +7,7 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.9-proto20.1"
+!define PRODUCT_VERSION "0.9-proto20.2"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # NSIS Dependencies
@@ -47,6 +47,18 @@ RequestExecutionLevel admin
 
 # Set up language
 !insertmacro MUI_LANGUAGE "English"
+
+Section
+	# Copy invisible.vbs to install dir
+	SetOutPath "$INSTDIR"
+	File "installation\invisible.vbs"
+SectionEnd
+
+Section
+	# Migrate shortcuts
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
+SectionEnd
 
 Section "Install TUN/TAP Driver"
 	# Install the tap driver
@@ -108,16 +120,16 @@ Section "Install cjdns"
 	# And one to test connectivity
 	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk" "ping" "/t fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5" "$INSTDIR\logo.ico"
 
-	# Add tools to hack and unhack DNS
+	# Add tools to patch and unpatch DNS
 	# Basically spray static IPv6 addresses on all the interfaces so Firefox can browse by domain name.
-	File "installation\dns_hack.cmd"
-	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_hack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
-	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
+	File "installation\dns_patch.cmd"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS patch.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_patch.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS patch.lnk"
 	Pop $0
 
-	File "installation\dns_unhack.cmd"
-	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_unhack.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
-	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
+	File "installation\dns_unpatch.cmd"
+	CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS patch.lnk" "cmd.exe" "/k $\"cd $\"$\"$\"$INSTDIR$\"$\"$\" & dns_unpatch.cmd <NUL & exit$\"" "$INSTDIR\logo.ico"
+	ShellLink::SetRunAsAdministrator "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS patch.lnk"
 	Pop $0
 
 	# Register with add/remove programs
@@ -140,7 +152,7 @@ Section "Generate cjdns configuration if needed"
 	# Be in the right directory
 	SetOutPath "$INSTDIR"
 	# Make cjdns config file if it doesn't exist
-	ExecWait "genconf.cmd"
+	ExecWait "C:\Windows\System32\wscript.exe invisible.vbs genconf.cmd"
 SectionEnd
 
 Section "Install cjdns service"
@@ -170,11 +182,11 @@ Section "Install cjdns service"
 	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\CjdnsService.exe" "" "" ""
 SectionEnd
 
-Section "Apply DNS hack"
+Section "Apply DNS patch"
 	# Be in the right directory
 	SetOutPath "$INSTDIR"
-	# Apply the DNS hack to all the interfaces
-	ExecWait "dns_hack.cmd"
+	# Apply the DNS patch to all the interfaces
+	ExecWait "C:\Windows\System32\wscript.exe invisible.vbs dns_patch.cmd"
 	# Now we have a legit-looking on at least one interface
 	# Sleep so that we don't immediately open a browser tab while the network was just changed and confuse e.g. Chrome.
 	Sleep 10000
@@ -200,7 +212,6 @@ Section "Display instructions"
 	ExecShell "open" "https://github.com/interfect/cjdns-installer/blob/master/Users%20Guide.md"
 SectionEnd
 
-
 Section "un.Uninstall cjdns"
 	# Things the uninstaller does
 
@@ -213,8 +224,8 @@ Section "un.Uninstall cjdns"
 	# Remove the service
 	SimpleSC::RemoveService "cjdns"
 
-	# Undo the DNS hack, whether applied or not
-	ExecWait "$INSTDIR\dns_unhack.bat"
+	# Undo the DNS patch, whether applied or not
+	ExecWait "$INSTDIR\dns_unpatch.bat"
 
 	# Delete the uninstaller
 	Delete "$INSTDIR\uninstall.exe"
@@ -229,8 +240,8 @@ Section "un.Uninstall cjdns"
 	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Configure cjdns.lnk"
 	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns configuration.lnk"
 	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Test cjdns connectivity.lnk"
-	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
-	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS patch.lnk"
+	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS patch.lnk"
 
 	# Delete the start menu folder
 	RMDir "$SMPROGRAMS\${PRODUCT_NAME}"
@@ -250,10 +261,11 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\start.cmd"
 	Delete "$INSTDIR\test_config.cmd"
 	Delete "$INSTDIR\edit_config.cmd"
-	Delete "$INSTDIR\dns_hack.cmd"
-	Delete "$INSTDIR\dns_unhack.cmd"
+	Delete "$INSTDIR\dns_patch.cmd"
+	Delete "$INSTDIR\dns_unpatch.cmd"
 	Delete "$INSTDIR\public_peers.txt"
 	Delete "$INSTDIR\addPublicPeers.vbs"
+	Delete "$INSTDIR\invisible.vbs"
 	Delete "$INSTDIR\logo.ico"
 
 	# Remove the dependencies directory
@@ -272,4 +284,12 @@ Section "un.Remove cjdns configuration"
 
 	# Delete the install directory, if empty
 	RMDir "$INSTDIR"
+SectionEnd
+
+Section /o "un.Remove OpenVPN Tap Driver"
+	# Removes the tap driver by calling it's uninstaller
+	IfSilent +2
+	ExecWait "C:\Program Files\TAP-Windows\Uninstall.exe"
+	IfSilent 0 +2
+	ExecWait "C:\Program Files\TAP-Windows\Uninstall.exe /S"
 SectionEnd
