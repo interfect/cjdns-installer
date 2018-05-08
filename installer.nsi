@@ -55,9 +55,12 @@ Section
 SectionEnd
 
 Section
-	# Migrate shortcuts
+	# Delete old files
 	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Apply DNS hack.lnk"
 	Delete "$SMPROGRAMS\${PRODUCT_NAME}\Revert DNS hack.lnk"
+
+	Delete "$INSTDIR\dns_hack.cmd"
+	Delete "$INSTDIR\dns_unhack.cmd"
 SectionEnd
 
 Section "Install TUN/TAP Driver"
