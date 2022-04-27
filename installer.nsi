@@ -66,12 +66,12 @@ SectionEnd
 Section "Install TUN/TAP Driver"
 	# Install the tap driver
 	SetOutPath "$INSTDIR\dependencies"
-	File "dependencies\tap-windows-9.21.1.exe"
+	File "dependencies\tap-windows-9.24.2-I601-Win10.exe"
 	IfSilent +2
-	ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
+	ExecWait "$INSTDIR\dependencies\tap-windows-9.24.2-I601-Win10.exe"
 	IfSilent 0 +2
-	ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe /S"
-	Delete "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
+	ExecWait "$INSTDIR\dependencies\tap-windows-9.24.2-I601-Win10.exe /S"
+	Delete "$INSTDIR\dependencies\tap-windows-9.24.2-I601-Win10.exe"
 	# TODO: Doesn't seem to work
 	RMDir /r "$INSTDIR\dependencies"
 SectionEnd
