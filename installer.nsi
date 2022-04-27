@@ -165,7 +165,7 @@ Section "Install cjdns service"
 	SimpleSC::StopService "cjdns" 1 30
 
 	# Copy the service files
-	File "installation\CjdnsService.exe"
+	File "installation\cjdnsservice.exe"
 	File "installation\restart.cmd"
 	File "installation\stop.cmd"
 	File "installation\start.cmd"
@@ -184,7 +184,7 @@ Section "Install cjdns service"
 	Pop $0
 
 	# Install a normal service that the user manually starts
-	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\CjdnsService.exe" "" "" ""
+	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\cjdnsservice.exe" "" "" ""
 SectionEnd
 
 Section "Apply DNS patch"
@@ -262,7 +262,7 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\sybilsim.exe"
 	Delete "$INSTDIR\testcjdroute.exe"
 	Delete "$INSTDIR\genconf.cmd"
-	Delete "$INSTDIR\CjdnsService.exe"
+	Delete "$INSTDIR\cjdnsservice.exe"
 	Delete "$INSTDIR\restart.cmd"
 	Delete "$INSTDIR\stop.cmd"
 	Delete "$INSTDIR\start.cmd"
