@@ -43,7 +43,7 @@ If it doesn't, make sure the TAP driver is installed (it should get installed by
 
 ## Add more peers
 
-By default, the installer adds **public peers** to your cjdns configuration file. These are meshnet nodes on the Internet with owners that allow just anybody to connect to them, by publically posting the **peering credentials**. One set of credentials, for example, is published [here](http://transitiontech.ca/public).
+By default, the installer adds **public peers** to your cjdns configuration file. These are meshnet nodes on the Internet with owners that allow just anybody to connect to them, by publically posting the **peering credentials**. One set of credentials, for example, is published [here](https://github.com/hyperboria/peers).
 
 In general, peering credentials look something like this:
 
