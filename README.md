@@ -24,11 +24,38 @@ The CjdnsService component requires .NET 2 or later in order to work.
 
 ## Building
 
-The repository includes built cjdns binaries, prepared [using this procedure](https://github.com/hyperboria/docs/blob/4274dbdffbc2f8b83138e4adcfe23d96013eafe7/install/windows.md). It basically amounts to:
+The repository includes built cjdns binaries, prepared [using this procedure](https://github.com/hyperboria/docs/blob/4274dbdffbc2f8b83138e4adcfe23d96013eafe7/install/windows.md). 
+
+You can use [Ubuntu 22 on Windows 11](https://apps.microsoft.com/store/detail/ubuntu/9PDXGNCFSCZV?hl=en-us&gl=US) using [WSL](https://ubuntu.com/wsl), and run the following commands:
 
 ```
-SYSTEM=win32 CROSS_COMPILE=i686-w64-mingw32- ./cross-do
+sudo apt install software-properties-common -y
+
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+
+sudo apt update
+
+sudo apt-get install mingw-w64 build-essential nodejs git python3.7
+
+ls /usr/bin/python* -l
+
+sudo ln -vfns /usr/bin/python3.7 /usr/bin/python3
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+rustup target add x86_64-pc-windows-gnuls
+
+git clone https://github.com/cjdelisle/cjdns.git
+cd cjdns
+
+# SYSTEM=win32 CROSS_COMPILE=i686-w64-mingw32- ./cross-do
+
+./windows_do
 ```
+
+The built exe files will be in the `/target/x86_64-pc-windows-gnuls/release/` folder, copy them into the repo's `installation` directory.
+
+Try to run cjdroute.exe. If you get the "libssp-0.dll was not found" error, download it from [the LLVM based mingw-w64 toolchain repo](https://github.com/mstorsjo/llvm-mingw/releases) and copy next to the exe files.
 
 To build the installer, right-click on `installer.nsi` and hit "Compile NSIS Script".
 
