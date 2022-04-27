@@ -7,7 +7,7 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.10-proto20.2"
+!define PRODUCT_VERSION "21.2"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # NSIS Dependencies
@@ -22,7 +22,7 @@
 
 # What is the installer called?
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "cjdns-installer-${PRODUCT_VERSION}.exe"
+OutFile "cjdns-windows-${PRODUCT_VERSION}.exe"
 ShowInstDetails show
 
 # Where do we want to install to?
