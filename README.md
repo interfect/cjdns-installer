@@ -4,9 +4,11 @@
 
 License: GPLv3
 
+Cjdns is an encrypted IPv6 network using public-key cryptography for address allocation and a distributed hash table for routing.
+
 Source code for cjdns is available from the official repository [here](https://github.com/cjdelisle/cjdns).
 
-The installer itself is written in Nullsoft Scriptable Install System script. It also includes a Windows service, CJDNS Watchdog Service, which takes care of starting up cjdns on boot and restarting it if it dies.
+The installer itself is written in [Nullsoft Scriptable Install System](http://nsis.sourceforge.net/Main_Page) script. It also includes a Windows service, CJDNS Watchdog Service, which takes care of starting up cjdns on boot and restarting it if it dies.
 
 ## Dependencies
 
@@ -18,7 +20,7 @@ To rebuild CjdnsService, you should use [Visual Studio 2022](https://visualstudi
 
 ## Installation Dependencies
 
-The installer should run just fine on Windows 7 x64. Nothing else has been tested.
+The installer should run just fine on 64-bit Windows.
 
 ## Building
 
