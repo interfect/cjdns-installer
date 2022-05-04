@@ -56,6 +56,92 @@
                         "user": "ansuz",
                         "location":"Newark,NJ,USA"
                     },
+					"80.218.59.16:56879":{
+						"contact":"gopfertaminomal@theswissbay.ch",
+						"login":"theswissbay-peering-login",
+						"password":"rr1lsx8vvxq7m5107gvsn98gc2h2l54",
+						"peerName":"theswissbay.ch",
+						"publicKey":"nuvtkly8swgkwsyyjrv89f4y4y0w3x17w61twgsfh9zv1r87h060.k",
+						"website":"https://theswissbay.ch"
+					},
+					"45.32.152.232:5078":{
+						"contact":"suleymanovemil8@gmail.com",
+						"login":"default-login",
+						"password":"v277jzr7r3jgk0vk1389b2c3h0gy98t",
+						"peerName":"sssemil.k",
+						"publicKey":"08bz912l989nzqc21q9x5qr96ns465nd71f290hb9q40z94jjw60.k"
+					},
+					"[2001:19f0:6c01:1f4f:5400:03ff:fe2f:dc95]:5078":{
+						"contact":"suleymanovemil8@gmail.com",
+						"login":"default-login",
+						"password":"v277jzr7r3jgk0vk1389b2c3h0gy98t",
+						"peerName":"sssemil.k",
+						"publicKey":"08bz912l989nzqc21q9x5qr96ns465nd71f290hb9q40z94jjw60.k"
+					},
+					"44.131.22.1:43022":{
+						"contact":"hostmaster@cwningen.cymru",
+						"login":"public-peer",
+						"password":"s22z2q6y8fsj28myjlp7yx6gv0wn1q2",
+						"peerName":"penfar.cwningen.cymru",
+						"publicKey":"pp6c01cnz51t2vyl1jmzbply1n662c13nm6mzprx0g5djkvl3470.k"
+					},
+					"44.131.22.48:9740":{
+						"contact":"hostmaster@cwningen.cymru",
+						"login":"public-peer",
+						"password":"6uyxcspqzuxycd1nrwjugmhfh7r2qwd",
+						"peerName":"traed.cwningen.cymru",
+						"publicKey":"p8q8bsbvlr3xjh2hqlzyfcgjsk2mjm7fl8s5w73v68925n4f6nb0.k"
+					},
+					"[2001:67c:2990:b00::5d5d:812b]:43022":{
+						"contact":"hostmaster@cwningen.cymru",
+						"login":"public-peer",
+						"password":"s22z2q6y8fsj28myjlp7yx6gv0wn1q2",
+						"peerName":"penfar.cwningen.cymru",
+						"publicKey":"pp6c01cnz51t2vyl1jmzbply1n662c13nm6mzprx0g5djkvl3470.k"
+					},
+					"[2001:67c:2990:f00::5d5d:32fd]:9740":{
+						"contact":"hostmaster@cwningen.cymru",
+						"login":"public-peer",
+						"password":"6uyxcspqzuxycd1nrwjugmhfh7r2qwd",
+						"peerName":"traed.cwningen.cymru",
+						"publicKey":"p8q8bsbvlr3xjh2hqlzyfcgjsk2mjm7fl8s5w73v68925n4f6nb0.k"
+					},
+					"142.93.148.79:32307":{
+						"contact":"kusoneko@kusoneko.moe",
+						"gpg":"E5FD4F97502A0BB304F44BA1440515F24B65A136",
+						"location":"digitalocean tor1",
+						"login":"public-peer",
+						"password":"242yl4g4nmu0rygusyhxu9xd13lrhuj",
+						"peerName":"kusoneko.moe",
+						"publicKey":"nvl82112jgj26sgv6r7sbuqc7wh1n7w1stsj327lbcu8n2yycf20.k"
+					},
+					"[2604:a880:cad:d0::685d:e001]:32307":{
+						"contact":"kusoneko@kusoneko.moe",
+						"gpg":"E5FD4F97502A0BB304F44BA1440515F24B65A136",
+						"location":"digitalocean tor1",
+						"login":"public-peer",
+						"password":"242yl4g4nmu0rygusyhxu9xd13lrhuj",
+						"peerName":"kusoneko.moe",
+						"publicKey":"nvl82112jgj26sgv6r7sbuqc7wh1n7w1stsj327lbcu8n2yycf20.k"
+					},
+					"68.96.83.151:60405":{
+						"contact":"contact@yk3music.com",
+						"ipfs":"/tcp/4001/ipfs/QmZEiPvrfZHapq4uiyTDEcR2szCUhDnjdS4q3Uv2b1Uh88",
+						"ipv6":"fcbb:1db3:54fb:e519:d915:d7db:4893:4f30",
+						"organization":"Yk3 Music",
+						"password":"98b31ngx6mw2zcd4jwqycrkcp7jnc31",
+						"peerName":"yk3music-irvine",
+						"publicKey":"kllz76rusmyk3748yz3tgnv9xhtv08nd2nss31fjuwkgwf9hvys0.k"
+					},
+					"[2600:8802:2600:6b9:2c1a:7ece:f34a:a61a]:60405":{
+						"contact":"contact@yk3music.com",
+						"ipfs":"/tcp/4001/ipfs/QmZEiPvrfZHapq4uiyTDEcR2szCUhDnjdS4q3Uv2b1Uh88",
+						"ipv6":"fcbb:1db3:54fb:e519:d915:d7db:4893:4f30",
+						"organization":"Yk3 Music",
+						"password":"98b31ngx6mw2zcd4jwqycrkcp7jnc31",
+						"peerName":"yk3music-irvine",
+						"publicKey":"kllz76rusmyk3748yz3tgnv9xhtv08nd2nss31fjuwkgwf9hvys0.k"
+					}
                     //////////////////////////////////////////////////////////////////////////////
                     // End public access peers                                                  //
                     //////////////////////////////////////////////////////////////////////////////

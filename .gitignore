@@ -3,6 +3,7 @@
 
 # The actual installer
 cjdns-installer-*.exe
+cjdns-windows-*.exe
 
 # Cjdns repo
 cjdns
@@ -81,6 +82,7 @@ ipch/
 *.psess
 *.vsp
 *.vspx
+.vs
 
 # TFS 2012 Local Workspace
 $tf/

@@ -7,7 +7,7 @@
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP "sidebar.bmp"
 
 !define PRODUCT_NAME "CJDNS for Windows"
-!define PRODUCT_VERSION "0.10-proto20.2"
+!define PRODUCT_VERSION "21.2"
 !define PRODUCT_PUBLISHER "Santa Cruz Meshnet Project"
 
 # NSIS Dependencies
@@ -22,7 +22,7 @@
 
 # What is the installer called?
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "cjdns-installer-${PRODUCT_VERSION}.exe"
+OutFile "cjdns-windows-${PRODUCT_VERSION}.exe"
 ShowInstDetails show
 
 # Where do we want to install to?
@@ -66,12 +66,12 @@ SectionEnd
 Section "Install TUN/TAP Driver"
 	# Install the tap driver
 	SetOutPath "$INSTDIR\dependencies"
-	File "dependencies\tap-windows-9.21.1.exe"
+	File "dependencies\tap-windows-9.24.2-I601-Win10.exe"
 	IfSilent +2
-	ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
+	ExecWait "$INSTDIR\dependencies\tap-windows-9.24.2-I601-Win10.exe"
 	IfSilent 0 +2
-	ExecWait "$INSTDIR\dependencies\tap-windows-9.21.1.exe /S"
-	Delete "$INSTDIR\dependencies\tap-windows-9.21.1.exe"
+	ExecWait "$INSTDIR\dependencies\tap-windows-9.24.2-I601-Win10.exe /S"
+	Delete "$INSTDIR\dependencies\tap-windows-9.24.2-I601-Win10.exe"
 	# TODO: Doesn't seem to work
 	RMDir /r "$INSTDIR\dependencies"
 SectionEnd
@@ -89,12 +89,14 @@ Section "Install cjdns"
 
 	# Write all the files
 	File "installation\cjdroute.exe"
+	File "installation\libssp-0.dll"	
 	File "installation\makekeys.exe"
 	File "installation\mkpasswd.exe"
 	File "installation\privatetopublic.exe"
 	File "installation\publictoip6.exe"
 	File "installation\randombytes.exe"
 	File "installation\sybilsim.exe"
+	File "installation\testcjdroute.exe"
 	File "installation\genconf.cmd"
 	File "installation\logo.ico"
 
@@ -163,7 +165,7 @@ Section "Install cjdns service"
 	SimpleSC::StopService "cjdns" 1 30
 
 	# Copy the service files
-	File "installation\CjdnsService.exe"
+	File "installation\cjdnsservice.exe"
 	File "installation\restart.cmd"
 	File "installation\stop.cmd"
 	File "installation\start.cmd"
@@ -182,7 +184,7 @@ Section "Install cjdns service"
 	Pop $0
 
 	# Install a normal service that the user manually starts
-	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\CjdnsService.exe" "" "" ""
+	SimpleSC::InstallService "cjdns" "cjdns Mesh Network Router" "16" "3" "$INSTDIR\cjdnsservice.exe" "" "" ""
 SectionEnd
 
 Section "Apply DNS patch"
@@ -251,14 +253,16 @@ Section "un.Uninstall cjdns"
 
 	# Delete all the files (including optional ones)
 	Delete "$INSTDIR\cjdroute.exe"
+	Delete "$INSTDIR\libssp-0.dll"
 	Delete "$INSTDIR\makekeys.exe"
 	Delete "$INSTDIR\mkpasswd.exe"
 	Delete "$INSTDIR\privatetopublic.exe"
 	Delete "$INSTDIR\publictoip6.exe"
 	Delete "$INSTDIR\randombytes.exe"
 	Delete "$INSTDIR\sybilsim.exe"
+	Delete "$INSTDIR\testcjdroute.exe"
 	Delete "$INSTDIR\genconf.cmd"
-	Delete "$INSTDIR\CjdnsService.exe"
+	Delete "$INSTDIR\cjdnsservice.exe"
 	Delete "$INSTDIR\restart.cmd"
 	Delete "$INSTDIR\stop.cmd"
 	Delete "$INSTDIR\start.cmd"
