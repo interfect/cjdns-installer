@@ -3,59 +3,6 @@
                     // These peers are public peers. They are likely to be overloaded.          //
                     // Please remove them as soon as you can get some real peers.               //
                     //////////////////////////////////////////////////////////////////////////////
-                    "76.105.229.241:13982" : {
-                        "password" : "general_public_1985",
-                        "publicKey" : "7pu8nlqphgd1bux9sdpjg0c104217r3b3m1bvmdtbn7uwcj5cky0.k",
-                        "ipv6": "fcd4:1dc1:cc08:c97d:85e2:6cad:eab8:0864",
-                        "user": "Rainfly X"
-                        // Last check: Unresponsive on 9/3/2015
-                    },
-                    "98.162.176.55:64054" : {
-                        "password" : "null",
-                        "publicKey" : "trzcvx9wyvyxd9hhzusf9pwqdmngcgbxd36b8w6fjgfub3t9gw90.k",
-                        "ipv6": "fc93:e5b5:7cde:7983:f50c:fe31:106b:1f88",
-                        "user": "meLon"
-                        // Last check: Unresponsive on 9/3/2015
-                    },
-                    "199.180.252.227:19071" : {
-                        "password" : "public_JFh4rX0R1jm6a7eKWCzD",
-                        "publicKey" : "425bcpr9ns0jpuh9ffx1lbbktkd3tpln16jzs9sgbjdkvfg25zv0.k",
-                        "ipv6": "fc40:21da:e099:3a0b:6eee:82bb:b6cc:ffff",
-                        "user": "Grey"
-                        // Last check: Unresponsive on 9/3/2015
-                    },
-                    "91.219.237.220:28049" : {
-                        "password" : "meshnet-Ju7VPtiAu4ZI4LRNv2uyDqPGROMupY",
-                        "publicKey" : "8xqd9u22cstvd7jz5w694ngug113pt8wt25wc0cv44hzb0cmgj70.k",
-                        "ipv6": " fcf4:0102:b659:cbc0:ae42:7a57:fa20:8560",
-                        "user": "longneck"
-                        // Last check: Unresponsive on 9/3/2015
-                    },
-                    "188.226.183.183:43328":
-                    {
-                        "password":"public_access",
-                        "publicKey":"1y1jmqrw4r31jlp6yqmq30067rcp0tsgsdm3cs4k8l33pyfhpwn0.k",
-                        "ipv6": "fcbb:98bd:d44f:40dc:426c:4971:b6b1:7bd6",
-                        "user": "weuxel"
-                        // Last check: OK on 9/3/2015
-                    },
-                    "212.83.157.66:10334":
-                    {       
-                        "password":"Public",        
-                        "publicKey":"ddhxthnv29ljx2n9618qs2udm2f8jnm85szbf5y79bh4gkfyt3y0.k",
-                        "ipv6": "fc8b:c037:a5db:dcf4:ca29:d3e5:2a71:3174",
-                        "user": "elwisp",
-                        "contact":"elwisp@efnet or hypeirc",       
-                        "location":"FR"
-                        // Last check: Unresponsive on 9/3/2015
-                    },
-                    "104.200.29.163:53053":{
-                        "password":"L9UNAUTiTW323aHhRvSlxTjH8VTa8Yj",
-                        "publicKey":"1941p5k8qqvj17vjrkb9z97wscvtgc1vp8pv1huk5120cu42ytt0.k",
-                        "contact":"ansuz@transitiontech.ca",
-                        "user": "ansuz",
-                        "location":"Newark,NJ,USA"
-                    },
 					"80.218.59.16:56879":{
 						"contact":"gopfertaminomal@theswissbay.ch",
 						"login":"theswissbay-peering-login",
