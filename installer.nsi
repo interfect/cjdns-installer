@@ -149,7 +149,8 @@ Section "Add public peers when generating config"
 	SetOutPath "$INSTDIR"
 
 	# Add these files
-	File "installation\public_peers.txt"
+	File "installation\public_peers_ipv4.txt"
+	File "installation\public_peers_ipv6.txt"
 	File "installation\addPublicPeers.vbs"
 SectionEnd
 
