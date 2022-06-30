@@ -6,7 +6,8 @@ root = fso.GetParentFolderName(WScript.ScriptFullName)
 
 source_file = "cjdroute.conf"
 temp_file = "cjdroute.tmp"
-peer_file = "public_peers.txt"
+peer_file = "public_peers_ipv4.txt"
+' peer_6_file = "public_peers_ipv6.txt"
 
 set in_stream = fso.OpenTextFile(source_file)
 ' Make a temp file, clobbering any already there
