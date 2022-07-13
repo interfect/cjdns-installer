@@ -7,24 +7,24 @@ root = fso.GetParentFolderName(WScript.ScriptFullName)
 source_file = "cjdroute.conf"
 temp_file = "cjdroute.tmp"
 
-set in_stream = fso.OpenTextFile(source_file)
+Set in_stream = fso.OpenTextFile(source_file)
 ' Make a temp file, clobbering any already there
-set out_stream = fso.CreateTextFile(temp_file, True)
+Set out_stream = fso.CreateTextFile(temp_file, True)
 
 ' x equals zero as zero lines read
 x = 0
 
 Do Until in_stream.AtEndOfStream
-    ' First line and so on
+    ' Increase the line counting variable
     x = x + 1
-    ' Copy over config file lines
-    line = in_stream.ReadLine
-    out_stream.WriteLine line
-    if x = 117 then
-        ' Write an empty line 
-	line2 = "" 
-        out_stream.WriteLine line2
-    end if
+	
+    ' Read the next line in the config file
+	line = in_stream.ReadLine
+
+	' Copy it over if it's not the line that we need to skip
+    If Not ((x = 117) And (Right(line, 2) = "],")) Then
+		out_stream.WriteLine line
+    End If
 Loop
 
 in_stream.Close
