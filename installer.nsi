@@ -149,8 +149,10 @@ Section "Add public peers when generating config"
 	SetOutPath "$INSTDIR"
 
 	# Add these files
-	File "installation\public_peers.txt"
+	File "installation\public_peers_ipv4.txt"
+	File "installation\public_peers_ipv6.txt"
 	File "installation\addPublicPeers.vbs"
+	File "installation\fixBrokenConfig.vbs"	
 SectionEnd
 
 Section "Generate cjdns configuration if needed"
@@ -270,8 +272,10 @@ Section "un.Uninstall cjdns"
 	Delete "$INSTDIR\edit_config.cmd"
 	Delete "$INSTDIR\dns_patch.cmd"
 	Delete "$INSTDIR\dns_unpatch.cmd"
-	Delete "$INSTDIR\public_peers.txt"
+	Delete "$INSTDIR\public_peers_ipv4.txt"
+	Delete "$INSTDIR\public_peers_ipv6.txt"
 	Delete "$INSTDIR\addPublicPeers.vbs"
+	Delete "$INSTDIR\fixBrokenConfig.vbs"
 	Delete "$INSTDIR\invisible.vbs"
 	Delete "$INSTDIR\logo.ico"
 
