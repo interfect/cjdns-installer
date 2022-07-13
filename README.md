@@ -66,3 +66,9 @@ To build the installer, right-click on `installer.nsi` and hit "Compile NSIS Scr
 The installer will, by default, install a TAP driver, cjdns, and a Windows service that starts cjdns on boot. It will generate a configuration file at `C:\Program Files (x86)\cjdns\cjdroute.conf`, or wherever you installed it to, and then start cjdns.
 
 To configure cjdns, edit that configuration file, and then issue `net stop cjdns` and `net start cjdns` as administrator (or just reboot).
+
+## Testing cjdns
+
+Open a command prompt or a PowerShell window and try to ping a valid IPv6 address as described in detail [in the User Guide](https://github.com/interfect/cjdns-installer/blob/master/Users%20Guide.md).
+
+If you experience any problems, you can look at the Windows Event Viewer. If there are many entries with `CJDNS Watchdog Service` in the `Event Viewer (Local)`/`Windows Logs`/`Application` branch, something must be wrong.
