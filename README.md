@@ -72,3 +72,33 @@ To configure cjdns, edit that configuration file, and then issue `net stop cjdns
 Open a command prompt or a PowerShell window and try to ping a valid IPv6 address as described in detail [in the User Guide](https://github.com/interfect/cjdns-installer/blob/master/Users%20Guide.md).
 
 If you experience any problems, you can look at the Windows Event Viewer. If there are many entries with `CJDNS Watchdog Service` in the `Event Viewer (Local)`/`Windows Logs`/`Application` branch, something must be wrong.
+
+## Debug cjdns
+
+If you want to dig deeper, you can run cjdns from CLI.
+
+1. Open a command prompt with admin rights from the Windows Start Menu
+
+![image](https://user-images.githubusercontent.com/910321/178719617-ad58a813-44c5-4368-a176-064c2cbf989c.png)
+
+2. Stop the CJDNS Windows Service
+
+`net stop cjdns`
+
+3. Go to the working directory
+
+`cd "c:\Program Files (x86)\cjdns\"`
+
+4. Run CJDNS
+
+`cjdroute.exe < cjdroute.conf`
+
+![image](https://user-images.githubusercontent.com/910321/178720172-23d13c7f-1b46-44e7-96b4-c7c5f3e7e7cd.png)
+
+5, Open another command prompt to ping various IPv6 CJDNS addresses
+
+`ping fcec:ae97:8902:d810:6c92:ec67:efb2:3ec5`
+
+![image](https://user-images.githubusercontent.com/910321/178721034-750e3d56-05f2-4abf-be29-dbc34a72c2ad.png)
+
+6, Look for any error messages and details and change your configuration accordingly
